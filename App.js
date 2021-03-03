@@ -10,10 +10,19 @@ export default function App() {
 
   useEffect(() => {
   const getPokemon = async () => {
-    for (let i = 1; i <= 10; i++) {
-      const pokemon = await fetchPokemon(i);
-      setPokemon(pokemon)
+    let generacion = [];
+    for (let i = 1; i <= 151; i++) {
+      if (i != 137) {
+        const pokemon = await fetchPokemon(i);
+        generacion = generacion.concat(pokemon);
+        
+      }
+      else
+      {
+
+      }
     }
+      setPokemon(generacion)
   }
   getPokemon();
 },[])
@@ -24,7 +33,7 @@ export default function App() {
     <View style={styles.container}>
       <Text>Open up App.js to start working on your app!</Text>
       <StatusBar style="auto" />
-      <ComponetListPokemon/>
+      <ComponetListPokemon generacion ={pokemon}/>
     </View>
   );
 }
