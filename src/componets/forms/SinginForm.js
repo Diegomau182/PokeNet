@@ -6,7 +6,7 @@ import { validate } from "email-validator";
 import { firebase } from "../firebase";
 import Alert from "../shared/Alert";
 
-const SigninForm = () => {
+const SigninForm = ({navigation}) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [emailError, setEmailError] = useState(false);
@@ -27,12 +27,36 @@ const SigninForm = () => {
 
   const handleSignin = () => {
     firebase
-      .auth()
-      .signInWithEmailAndPassword(email, password)
-      .then((response) => console.log(response))
-      .catch((error) => {
-        setError(error.message);
-      });
+    .auth()
+    .signInWithEmailAndPassword(email, password)
+    .then((response) => {
+      // Obtener el Unique Identifier generado para cada usuario
+      // Firebase -> Authentication
+      const uid = response.user.uid;
+
+      // Obtener la colección desde Firebase
+      const usersRef = firebase.firestore().collection("users");
+
+      // Verificar que el usuario existe en Firebase authentication
+      // y también está almacenado en la colección de usuarios.
+      usersRef
+        .doc(uid)
+        .get()
+        .then((firestoreDocument) => {
+          if (!firestoreDocument.exists) {
+            setError("User does not exist in the database!");
+            return;
+          }
+
+          // Obtener la información del usuario y enviarla a la pantalla Home
+          const user = firestoreDocument.data();
+
+          navigation.navigation("Home", { user });
+        });
+    })
+    .catch((error) => {
+      setError(error.message);
+    });
   };
 
   return (
