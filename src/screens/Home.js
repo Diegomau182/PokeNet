@@ -1,11 +1,16 @@
 import React from "react";
-import { StyleSheet, View, Text } from "react-native";
+import { StyleSheet, View, Text, NativeEventEmitter } from "react-native";
+import { createBottomTabNavigator }  from '@react-navigation/bottom-tabs';
+import {PokeDexScreen} from "./PokeDexScreen"
 
+
+const tab = createBottomTabNavigator();
 const Home = ({ navigation }) => {
+  
   return (
-    <View>
-      <Text>Hello from home</Text>
-    </View>
+    <createBottomTabNavigator.Navigator>
+      <createBottomTabNavigator.Screen name="Pokedex" component={PokeDexScreen} />
+    </createBottomTabNavigator.Navigator>
   );
 };
 
