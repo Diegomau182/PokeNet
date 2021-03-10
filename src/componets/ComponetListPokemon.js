@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet,View, Text,Image} from 'react-native';
+import {StyleSheet,View, Text,Image,ScrollView} from 'react-native';
 
 const ComponetListPokemon = ({
     generacion,
@@ -8,7 +8,7 @@ const ComponetListPokemon = ({
 ) =>{
     const imgPokemon="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/";
     return (
-        <View>
+        <ScrollView>
             {generacion.map((pokemon) => ( 
                 <View>
                     <View style={styles.marcoPokemon}>
@@ -19,7 +19,7 @@ const ComponetListPokemon = ({
                     <Text key={pokemon}>{pokemon.name}</Text>
                 </View>
             ))}
-        </View>
+        </ScrollView>
 
     )
 }
