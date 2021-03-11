@@ -1,6 +1,5 @@
 import React from 'react';
-import {StyleSheet,View, Text,Image, ScrollView} from 'react-native';
-
+import {StyleSheet,View, Text,Image, ScrollView,Touch} from 'react-native';
 const ComponetListPokemon = ({
     generacion,
     callback
@@ -11,12 +10,12 @@ const ComponetListPokemon = ({
         <ScrollView>
             {generacion.map((pokemon) => ( 
                 <View>
-                    <View style={styles.marcoPokemon}>
+                    <View key={pokemon.id} style={styles.marcoPokemon}>
                         <Image source={{uri:`${imgPokemon}${pokemon.id}.png`}}
                             style={styles.pokeImagen}>
                         </Image>
+                        <Text style={styles.Name}>{pokemon.name}</Text>
                     </View>
-                    <Text key={pokemon}>{pokemon.name}</Text>
                 </View>
             ))}
         </ScrollView>
@@ -33,14 +32,18 @@ const styles = StyleSheet.create({
   marcoPokemon:{
     flex: 1,
     backgroundColor: "#e8cc57",
-    height: 155,
-    marginLeft: -20,
-    marginTop: 30,
-    marginRight: -20,
+    height: 150,
+    marginLeft: 70,
+    marginTop: 20,
+    marginRight: 70,
     alignContent: "center",
     justifyContent: "center",
   },
-  
+  Name:{
+      marginLeft:70,
+      alignItems:"center",
+      fontSize: 23,
+  }
 
 });
 
